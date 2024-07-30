@@ -1,3 +1,2 @@
 osource "/Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/nRF_Boards/boards/shields/*/Kconfig.defconfig"
-osource "/Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/boards/shields/*/Kconfig.defconfig"
 osource "/opt/nordic/ncs/v2.5.1/nrf/boards/shields/*/Kconfig.defconfig"

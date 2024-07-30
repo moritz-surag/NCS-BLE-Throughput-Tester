@@ -84,11 +84,6 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/debug/zephyr/drivers/flash/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
   include("/Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/debug/zephyr/drivers/gpio/cmake_install.cmake")
 endif()
 

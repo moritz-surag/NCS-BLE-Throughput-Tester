@@ -30,7 +30,7 @@ BOARD_DIR:PATH=/opt/nordic/ncs/v2.5.1/zephyr/boards/arm/nrf52dk_nrf52832
 BOARD_EXTENSIONS:BOOL=ON
 
 //No help, variable specified on the command line.
-BOARD_ROOT:UNINITIALIZED=/Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/nRF_Boards;/Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester
+BOARD_ROOT:UNINITIALIZED=/Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/nRF_Boards
 
 //Path to a program.
 BOSSAC:FILEPATH=BOSSAC-NOTFOUND
@@ -130,8 +130,8 @@ CMAKE_CXX_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
 //Flags used by the CXX compiler during RELWITHDEBINFO builds.
 CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
-//Path to a program.
-CMAKE_C_COMPILER:FILEPATH=/opt/nordic/ncs/toolchains/580e4ef81c/opt/zephyr-sdk/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc
+//C compiler
+CMAKE_C_COMPILER:STRING=/opt/nordic/ncs/toolchains/580e4ef81c/opt/zephyr-sdk/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
@@ -229,7 +229,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=NCS-BLE-Throughput-Tester
+CMAKE_PROJECT_NAME:STATIC=NONE
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION:STATIC=3.4.99
@@ -330,17 +330,17 @@ GPERF:FILEPATH=/opt/nordic/ncs/toolchains/580e4ef81c/bin/gperf
 //Path to a program.
 IMGTOOL:FILEPATH=/opt/nordic/ncs/toolchains/580e4ef81c/bin/imgtool
 
-//Value Computed by CMake
-NCS-BLE-Throughput-Tester_BINARY_DIR:STATIC=/Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/debug
-
-//Value Computed by CMake
-NCS-BLE-Throughput-Tester_IS_TOP_LEVEL:STATIC=ON
-
-//Value Computed by CMake
-NCS-BLE-Throughput-Tester_SOURCE_DIR:STATIC=/Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester
-
 //No help, variable specified on the command line.
 NCS_TOOLCHAIN_VERSION:UNINITIALIZED=NONE
+
+//Value Computed by CMake
+NONE_BINARY_DIR:STATIC=/Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/debug
+
+//Value Computed by CMake
+NONE_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+NONE_SOURCE_DIR:STATIC=/Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester
 
 //NRFXLIB root directory
 NRFXLIB_DIR:PATH=/opt/nordic/ncs/v2.5.1/nrfxlib
@@ -473,6 +473,8 @@ CMAKE_CXX_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
 CMAKE_CXX_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_CXX_FLAGS_RELWITHDEBINFO
 CMAKE_CXX_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_C_COMPILER
+CMAKE_C_COMPILER-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_C_COMPILER_AR
 CMAKE_C_COMPILER_AR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_C_COMPILER_RANLIB
@@ -529,7 +531,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=155
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=153
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

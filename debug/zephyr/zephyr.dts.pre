@@ -962,4 +962,15 @@ arduino_spi: &spi2 {
  };
 };
 # 0 "<command-line>" 2
+# 1 "/Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/app.overlay" 1
+
+
+
+
+
+
+ &uart0 {
+    /delete-property/ hw-flow-control;
+};
+# 0 "<command-line>" 2
 # 1 "/opt/nordic/ncs/v2.5.1/zephyr/misc/empty_file.c"

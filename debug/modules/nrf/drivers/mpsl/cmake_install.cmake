@@ -42,8 +42,3 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/debug/modules/nrf/drivers/mpsl/clock_control/cmake_install.cmake")
 endif()
 
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/debug/modules/nrf/drivers/mpsl/flash_sync/cmake_install.cmake")
-endif()
-

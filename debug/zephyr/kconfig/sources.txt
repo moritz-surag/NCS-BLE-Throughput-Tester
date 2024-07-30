@@ -1,3 +1,4 @@
+/Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/Kconfig
 /Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/debug/Kconfig/Kconfig.dts
 /Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/debug/Kconfig/Kconfig.modules
 /Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/debug/Kconfig/Kconfig.shield
@@ -310,7 +311,6 @@
 /opt/nordic/ncs/v2.5.1/nrfxlib/nrf_rpc/Kconfig
 /opt/nordic/ncs/v2.5.1/nrfxlib/openthread/Kconfig
 /opt/nordic/ncs/v2.5.1/nrfxlib/zboss/Kconfig
-/opt/nordic/ncs/v2.5.1/zephyr/Kconfig
 /opt/nordic/ncs/v2.5.1/zephyr/Kconfig.zephyr
 /opt/nordic/ncs/v2.5.1/zephyr/arch/Kconfig
 /opt/nordic/ncs/v2.5.1/zephyr/arch/arm/Kconfig

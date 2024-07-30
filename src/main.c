@@ -90,8 +90,8 @@ void on_data_received(struct bt_conn *conn, const uint8_t *const data, uint16_t 
     memcpy(temp_str, data, len);
     temp_str[len] = 0x00;
 
-    // LOG_INF("Received data on conn %p. Len: %d", (void *)conn, len);
-    // LOG_INF("Data: %s", log_strdup(temp_str));
+    LOG_INF("Received data on conn %p. Len: %d", (void *)conn, len);
+    LOG_INF("Data: %s", temp_str);
 }
 
 void button_handler(uint32_t button_state, uint32_t has_changed)
@@ -142,7 +142,7 @@ static void configure_dk_buttons_leds(void)
 
 /* Main */
 int main(void)
-{
+{	
     int err;
     int blink_status = 0;
 	LOG_INF("Hello World! %s\n", CONFIG_BOARD);

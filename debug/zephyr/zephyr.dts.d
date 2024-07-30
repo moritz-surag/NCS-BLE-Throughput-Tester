@@ -19,4 +19,5 @@ empty_file.o: /opt/nordic/ncs/v2.5.1/zephyr/misc/empty_file.c \
  /opt/nordic/ncs/v2.5.1/zephyr/dts/common/freq.h \
  /opt/nordic/ncs/v2.5.1/zephyr/dts/arm/nordic/override.dtsi \
  /opt/nordic/ncs/v2.5.1/zephyr/boards/arm/nrf52dk_nrf52832/nrf52dk_nrf52832-pinctrl.dtsi \
- /opt/nordic/ncs/v2.5.1/zephyr/include/zephyr/dt-bindings/input/input-event-codes.h
+ /opt/nordic/ncs/v2.5.1/zephyr/include/zephyr/dt-bindings/input/input-event-codes.h \
+ /Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/app.overlay
