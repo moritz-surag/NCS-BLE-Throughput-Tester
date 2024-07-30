@@ -22,88 +22,147 @@
 #include <zephyr/bluetooth/uuid.h>
 #include <zephyr/bluetooth/gatt.h>
 
-static uint8_t ct[10];
-static uint8_t ct_update;
+#include <zephyr/logging/log.h>
 
-static void ct_ccc_cfg_changed(const struct bt_gatt_attr *attr, uint16_t value)
-{
-	/* TODO: Handle value */
-}
+#include "cts.h"
 
-static ssize_t read_ct(struct bt_conn *conn, const struct bt_gatt_attr *attr,
-		       void *buf, uint16_t len, uint16_t offset)
-{
-	const char *value = attr->user_data;
+#define LOG_MODULE_NAME remote
+LOG_MODULE_REGISTER(LOG_MODULE_NAME);
 
-	return bt_gatt_attr_read(conn, attr, buf, len, offset, value,
-				 sizeof(ct));
-}
+static K_SEM_DEFINE(bt_init_ok, 0, 1);
+static uint8_t button_value = 0;
 
-static ssize_t write_ct(struct bt_conn *conn, const struct bt_gatt_attr *attr,
-			const void *buf, uint16_t len, uint16_t offset,
-			uint8_t flags)
-{
-	uint8_t *value = attr->user_data;
+#define DEVICE_NAME CONFIG_BT_DEVICE_NAME
+#define DEVICE_NAME_LEN (sizeof(DEVICE_NAME)-1)
 
-	if (offset + len > sizeof(ct)) {
-		return BT_GATT_ERR(BT_ATT_ERR_INVALID_OFFSET);
-	}
+static struct bt_remote_service_cb remote_service_callbacks;
 
-	memcpy(value + offset, buf, len);
-	ct_update = 1U;
 
-	return len;
-}
+static const struct bt_data ad[] = {
+    BT_DATA_BYTES(BT_DATA_FLAGS, (BT_LE_AD_GENERAL | BT_LE_AD_NO_BREDR)),
+    BT_DATA(BT_DATA_NAME_COMPLETE, DEVICE_NAME, DEVICE_NAME_LEN)
+};
 
-/* Current Time Service Declaration */
-BT_GATT_SERVICE_DEFINE(cts_cvs,
-	BT_GATT_PRIMARY_SERVICE(BT_UUID_CTS),
-	BT_GATT_CHARACTERISTIC(BT_UUID_CTS_CURRENT_TIME, BT_GATT_CHRC_READ |
-			       BT_GATT_CHRC_NOTIFY | BT_GATT_CHRC_WRITE,
-			       BT_GATT_PERM_READ | BT_GATT_PERM_WRITE,
-			       read_ct, write_ct, ct),
-	BT_GATT_CCC(ct_ccc_cfg_changed, BT_GATT_PERM_READ | BT_GATT_PERM_WRITE),
+static const struct bt_data sd[] = {
+    BT_DATA_BYTES(BT_DATA_UUID128_ALL, BT_UUID_REMOTE_SERV_VAL),
+};
+
+/* Declarations */
+static ssize_t read_button_characteristic_cb(struct bt_conn *conn, const struct bt_gatt_attr *attr, void *buf, uint16_t len, uint16_t offset);
+void button_chrc_ccc_cfg_changed(const struct bt_gatt_attr *attr, uint16_t value);
+static ssize_t on_write(struct bt_conn *conn, const struct bt_gatt_attr *attr, const void *buf, uint16_t len, uint16_t offset, uint8_t flags);
+
+
+BT_GATT_SERVICE_DEFINE(remote_srv,
+BT_GATT_PRIMARY_SERVICE(BT_UUID_REMOTE_SERVICE),
+    BT_GATT_CHARACTERISTIC(BT_UUID_REMOTE_BUTTON_CHRC,
+                    BT_GATT_CHRC_READ | BT_GATT_CHRC_NOTIFY,
+                    BT_GATT_PERM_READ,
+                    read_button_characteristic_cb, NULL, NULL),
+    BT_GATT_CCC(button_chrc_ccc_cfg_changed, BT_GATT_PERM_READ | BT_GATT_PERM_WRITE),
+    BT_GATT_CHARACTERISTIC(BT_UUID_REMOTE_MESSAGE_CHRC,
+                    BT_GATT_CHRC_WRITE_WITHOUT_RESP,
+                    BT_GATT_PERM_WRITE,
+                    NULL, on_write, NULL),
 );
 
-static void generate_current_time(uint8_t *buf)
+
+/* Callbacks */
+void bt_ready(int err)
 {
-	uint16_t year;
-
-	/* 'Exact Time 256' contains 'Day Date Time' which contains
-	 * 'Date Time' - characteristic contains fields for:
-	 * year, month, day, hours, minutes and seconds.
-	 */
-
-	year = sys_cpu_to_le16(2015);
-	memcpy(buf,  &year, 2); /* year */
-	buf[2] = 5U; /* months starting from 1 */
-	buf[3] = 30U; /* day */
-	buf[4] = 12U; /* hours */
-	buf[5] = 45U; /* minutes */
-	buf[6] = 30U; /* seconds */
-
-	/* 'Day of Week' part of 'Day Date Time' */
-	buf[7] = 1U; /* day of week starting from 1 */
-
-	/* 'Fractions 256 part of 'Exact Time 256' */
-	buf[8] = 0U;
-
-	/* Adjust reason */
-	buf[9] = 0U; /* No update, change, etc */
+    if (err) {
+        LOG_ERR("bt_ready returned %d", err);
+    }
+    k_sem_give(&bt_init_ok);
 }
 
-void cts_init(void)
+static ssize_t read_button_characteristic_cb(struct bt_conn *conn, const struct bt_gatt_attr *attr,
+			 void *buf, uint16_t len, uint16_t offset)
 {
-	/* Simulate current time for Current Time Service */
-	generate_current_time(ct);
+	return bt_gatt_attr_read(conn, attr, buf, len, offset, &button_value,
+				 sizeof(button_value));
 }
 
-void cts_notify(void)
-{	/* Current Time Service updates only when time is changed */
-	if (!ct_update) {
-		return;
-	}
+void button_chrc_ccc_cfg_changed(const struct bt_gatt_attr *attr, uint16_t value)
+{
+    bool notif_enabled = (value == BT_GATT_CCC_NOTIFY);
+    LOG_INF("Notifications %s", notif_enabled? "enabled":"disabled");
+    if (remote_service_callbacks.notif_changed) {
+        remote_service_callbacks.notif_changed(notif_enabled?BT_BUTTON_NOTIFICATIONS_ENABLED:BT_BUTTON_NOTIFICATIONS_DISABLED);
+    }
+}
 
-	ct_update = 0U;
-	bt_gatt_notify(NULL, &cts_cvs.attrs[1], &ct, sizeof(ct));
+void on_sent(struct bt_conn *conn, void *user_data)
+{
+    ARG_UNUSED(user_data);
+    LOG_INF("Notification sent on connection %p", (void *)conn);
+}
+
+static ssize_t on_write(struct bt_conn *conn,
+                        const struct bt_gatt_attr *attr,
+                        const void *buf,
+                        uint16_t len,
+                        uint16_t offset,
+                        uint8_t flags)
+{
+    LOG_INF("Received data, handle %d, conn %p",
+        attr->handle, (void *)conn);
+
+    if (remote_service_callbacks.data_received) {
+        remote_service_callbacks.data_received(conn, buf, len);
+    }
+    return len;
+}
+
+/* Remote controller functions */
+
+int send_button_notification(struct bt_conn *conn, uint8_t value)
+{
+    int err = 0;
+
+    struct bt_gatt_notify_params params = {0};
+    const struct bt_gatt_attr *attr = &remote_srv.attrs[2];
+
+    params.attr = attr;
+    params.data = &value;
+    params.len = 1;
+    params.func = on_sent;
+
+    err = bt_gatt_notify_cb(conn, &params);
+
+    return err;
+}
+
+void set_button_value(uint8_t btn_value)
+{
+    button_value = btn_value;
+}
+
+int bluetooth_init(struct bt_conn_cb *bt_cb, struct bt_remote_service_cb *remote_cb)
+{
+    int err;
+    LOG_INF("Initializing Bluetooth");
+
+    if (bt_cb == NULL || remote_cb == NULL) {
+        return NRFX_ERROR_NULL;
+    }
+    bt_conn_cb_register(bt_cb);
+    remote_service_callbacks.notif_changed = remote_cb->notif_changed;
+    remote_service_callbacks.data_received = remote_cb->data_received;
+
+    err = bt_enable(bt_ready);
+    if (err) {
+        LOG_ERR("bt_enable returned %d", err);
+        return err;
+    }
+
+    k_sem_take(&bt_init_ok, K_FOREVER);
+
+    err = bt_le_adv_start(BT_LE_ADV_CONN, ad, ARRAY_SIZE(ad), sd, ARRAY_SIZE(sd));
+    if (err){
+        LOG_ERR("couldn't start advertising (err = %d", err);
+        return err;
+    }
+
+    return err;
 }

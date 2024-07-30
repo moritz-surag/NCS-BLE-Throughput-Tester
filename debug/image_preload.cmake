@@ -1,0 +1,10 @@
+# Generated file that can be used to preload variant images
+set(BOARD "nrf52dk_nrf52832" CACHE INTERNAL "NCS child image controlled")
+set(BOARD_ROOT "/Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/nRF_Boards;/Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester;/opt/nordic/ncs/v2.5.1/nrf;/opt/nordic/ncs/v2.5.1/zephyr" CACHE INTERNAL "NCS child image controlled")
+set(CACHED_CONF_FILE "/Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/prj.conf" CACHE INTERNAL "NCS child image controlled")
+set(CLI_CONFIG_DEBUG_OPTIMIZATIONS "y" CACHE INTERNAL "NCS child image controlled")
+set(CLI_CONFIG_DEBUG_THREAD_INFO "y" CACHE INTERNAL "NCS child image controlled")
+set(CONF_FILE_BUILD_TYPE "" CACHE INTERNAL "NCS child image controlled")
+set(DTC_OVERLAY_FILE "" CACHE INTERNAL "NCS child image controlled")
+set(NCS_TOOLCHAIN_VERSION "NONE" CACHE INTERNAL "NCS child image controlled")
+set(WEST_PYTHON "/opt/nordic/ncs/toolchains/580e4ef81c/opt/python@3.9/bin/python3.9" CACHE INTERNAL "NCS child image controlled")
