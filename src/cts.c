@@ -32,6 +32,8 @@ LOG_MODULE_REGISTER(LOG_MODULE_NAME);
 static K_SEM_DEFINE(bt_init_ok, 0, 1);
 static uint8_t button_value = 0;
 
+static int bytes_sent = 0;
+
 #define DEVICE_NAME CONFIG_BT_DEVICE_NAME
 #define DEVICE_NAME_LEN (sizeof(DEVICE_NAME)-1)
 
@@ -66,7 +68,6 @@ BT_GATT_PRIMARY_SERVICE(BT_UUID_REMOTE_SERVICE),
                     NULL, on_write, NULL),
 );
 
-
 /* Callbacks */
 void bt_ready(int err)
 {
@@ -95,7 +96,8 @@ void button_chrc_ccc_cfg_changed(const struct bt_gatt_attr *attr, uint16_t value
 void on_sent(struct bt_conn *conn, void *user_data)
 {
     ARG_UNUSED(user_data);
-    LOG_INF("Notification sent on connection %p", (void *)conn);
+    // LOG_INF("Notification sent on connection %p", (void *)conn);
+    bytes_sent = bytes_sent + 244;
 }
 
 static ssize_t on_write(struct bt_conn *conn,
@@ -116,7 +118,7 @@ static ssize_t on_write(struct bt_conn *conn,
 
 /* Remote controller functions */
 
-int send_button_notification(struct bt_conn *conn, uint8_t value)
+int send_button_notification(struct bt_conn *conn, uint8_t *value)
 {
     int err = 0;
 
@@ -125,7 +127,7 @@ int send_button_notification(struct bt_conn *conn, uint8_t value)
 
     params.attr = attr;
     params.data = &value;
-    params.len = 1;
+    params.len = 244;
     params.func = on_sent;
 
     err = bt_gatt_notify_cb(conn, &params);
@@ -165,4 +167,8 @@ int bluetooth_init(struct bt_conn_cb *bt_cb, struct bt_remote_service_cb *remote
     }
 
     return err;
+}
+
+int get_bytes_sent(void) {
+    return bytes_sent;
 }

@@ -1,14 +1,15 @@
 {
     "__net_socket": [
-        "modem_socket",
         "dispatcher_context",
         "spair",
         "net_mgmt_socket",
         "tls_context",
         "websocket_context",
-        "net_context"
+        "net_context",
+        "modem_socket"
     ],
     "__subsystem": [
+        "counter_driver_api",
         "entropy_driver_api",
         "gpio_driver_api",
         "uart_driver_api",
@@ -18,7 +19,6 @@
         "bbram_driver_api",
         "can_driver_api",
         "coredump_driver_api",
-        "counter_driver_api",
         "dac_driver_api",
         "dai_driver_api",
         "dma_driver_api",

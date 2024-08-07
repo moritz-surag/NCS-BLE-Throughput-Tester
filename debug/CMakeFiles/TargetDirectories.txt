@@ -179,6 +179,9 @@
 /Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/debug/zephyr/drivers/console/CMakeFiles/rebuild_cache.dir
 /Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/debug/zephyr/drivers/console/CMakeFiles/edit_cache.dir
 /Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/debug/zephyr/drivers/console/CMakeFiles/drivers__console.dir
+/Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/debug/zephyr/drivers/counter/CMakeFiles/rebuild_cache.dir
+/Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/debug/zephyr/drivers/counter/CMakeFiles/edit_cache.dir
+/Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/debug/zephyr/drivers/counter/CMakeFiles/drivers__counter.dir
 /Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/debug/zephyr/drivers/entropy/CMakeFiles/rebuild_cache.dir
 /Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/debug/zephyr/drivers/entropy/CMakeFiles/edit_cache.dir
 /Users/moritz/Library/CloudStorage/OneDrive-SURAGMedicalGmbH/Coding/NCS-BLE-Throughput-Tester/debug/zephyr/drivers/entropy/CMakeFiles/drivers__entropy.dir

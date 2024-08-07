@@ -306,7 +306,7 @@ set_target_properties(devicetree_target PROPERTIES "DT_PROP|/soc/timer@4000a000|
 set_target_properties(devicetree_target PROPERTIES "DT_PROP|/soc/timer@4000a000|interrupts" "10;1;")
 set_target_properties(devicetree_target PROPERTIES "DT_PROP|/soc/timer@4000a000|prescaler" "0")
 set_target_properties(devicetree_target PROPERTIES "DT_PROP|/soc/timer@4000a000|zli" "False")
-set_target_properties(devicetree_target PROPERTIES "DT_PROP|/soc/timer@4000a000|status" "disabled")
+set_target_properties(devicetree_target PROPERTIES "DT_PROP|/soc/timer@4000a000|status" "okay")
 set_target_properties(devicetree_target PROPERTIES "DT_PROP|/soc/timer@4000a000|compatible" "nordic,nrf-timer;")
 set_target_properties(devicetree_target PROPERTIES "DT_PROP|/soc/timer@4000a000|wakeup-source" "False")
 set_target_properties(devicetree_target PROPERTIES "DT_PROP|/soc/timer@4000a000|zephyr,pm-device-runtime-auto" "False")
